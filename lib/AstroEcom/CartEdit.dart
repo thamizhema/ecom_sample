@@ -43,13 +43,16 @@ class _CartEditState extends State<CartEdit> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      '${widget.image}',
-                      width: MediaQuery.of(context).size.width / 3,
-                      height: MediaQuery.of(context).size.width / 3,
-                      fit: BoxFit.cover,
+                  Hero(
+                    tag: 'Image',
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        '${widget.image}',
+                        width: MediaQuery.of(context).size.width / 3,
+                        height: MediaQuery.of(context).size.width / 3,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   Column(

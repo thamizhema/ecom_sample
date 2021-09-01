@@ -18,17 +18,38 @@ class ViewProduct extends StatelessWidget {
             Column(
               children: [
                 ///image
-                Image.network(
-                  _productController.productView.value['productDisplayImage'],
-                  fit: BoxFit.cover,
-                )
-                    .box
-                    .height(
-                      context.screenWidth / 1.6,
+                Stack(
+                  children: [
+                    Hero(
+                      tag: "Image",
+                      child: Image.network(
+                        _productController
+                            .productView.value['productDisplayImage'],
+                        fit: BoxFit.cover,
+                      )
+                          .box
+                          .height(
+                            context.screenWidth / 1.6,
+                          )
+                          .width(context.screenWidth)
+                          .shadow2xl
+                          .make(),
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(Icons.arrow_back_ios_rounded),
+                          color: Vx.white,
+                          highlightColor: Colors.black,
+                          splashColor: Vx.white,
+                        )
+                      ],
                     )
-                    .width(context.screenWidth)
-                    .shadow2xl
-                    .make(),
+                  ],
+                ),
 
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
@@ -115,7 +136,14 @@ class ViewProduct extends StatelessWidget {
                     ],
                   ),
                   onPressed: () {
-                    FocusScope.of(context).unfocus();
+                    if (_productController.checkingCart(
+                        _productController.productView.value['docId'])) {
+                      VxToast.show(context,
+                          msg: 'you already added this product in you cart');
+                    } else {
+                      _productController.setCartProductList(
+                          _productController.productView.value);
+                    }
 
                     // Get.to(TrackOrder());
                   },
